@@ -1,9 +1,9 @@
 package banco.dao;
 
-import banco.modelo.Cliente;
-import banco.modelo.Conta;
-import banco.modelo.ContaCorrente;
-import banco.modelo.ContaInvestimento;
+import banco.entity.Cliente;
+import banco.entity.Conta;
+import banco.entity.ContaCorrente;
+import banco.entity.ContaInvestimento;
 import banco.util.Conexao;
 
 import java.sql.Connection;

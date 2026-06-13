@@ -6,14 +6,14 @@ import banco.entity.Conta;
 
 import java.util.List;
 
-public class GerenciadorContas {
+public class ModelContas {
     private final ContaDAO contaDAO;
 
-    public GerenciadorContas() {
+    public ModelContas() {
         this.contaDAO = new ContaDAO();
     }
 
-    public void inicializarContasDeTeste(GerenciadorClientes gerenciadorClientes) {
+    public void inicializarContasDeTeste(ModelClientes modelClientes) {
         // Os dados agora ficam no PostgreSQL. Insira dados de teste pelo script SQL ou pela tela.
     }
 

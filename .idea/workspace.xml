@@ -6,12 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="660f851c-7014-4491-a4e4-9738a1e0fd8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/TelaClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/TelaClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/Conta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/ContaInvestimento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/ContaInvestimento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/negocio/GerenciadorClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/negocio/GerenciadorClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/negocio/GerenciadorContas.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/negocio/GerenciadorContas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/ModeloTabelaCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/ModeloTabelaCliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/TelaClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaClientes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/TelaOperacoes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaOperacoes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/TelaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/apresentacao/TelaVincularConta.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaVincularConta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ClienteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ContaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ContaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/Conta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/ContaCorrente.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaCorrente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/ContaI.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/modelo/ContaInvestimento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaInvestimento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/negocio/GerenciadorClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/models/GerenciadorClientes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/negocio/GerenciadorContas.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/models/GerenciadorContas.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,6 +1,6 @@
 package banco.dao;
 
-import banco.modelo.Cliente;
+import banco.entity.Cliente;
 import banco.util.Conexao;
 
 import java.sql.Connection;

@@ -1,8 +1,8 @@
-package banco.apresentacao;
+package banco.views;
 
-import banco.modelo.Cliente;
-import banco.negocio.GerenciadorClientes;
-import banco.negocio.GerenciadorContas;
+import banco.entity.Cliente;
+import banco.models.ModelClientes;
+import banco.models.ModelContas;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
@@ -18,8 +18,8 @@ import javax.swing.*;
 public class TelaClientes extends JFrame {
     
     // Gerenciadores de Negócio
-    private final GerenciadorClientes gerenciadorClientes; // Lógica de Negócio para Clientes
-    private final GerenciadorContas gerenciadorContas; // Lógica de Negócio para Contas, necessário para exclusão de contas vinculadas a clientes
+    private final ModelClientes modelClientes; // Lógica de Negócio para Clientes
+    private final ModelContas modelContas; // Lógica de Negócio para Contas, necessário para exclusão de contas vinculadas a clientes
     
     // Componentes da Tabela
     private ModeloTabelaCliente tableModel; // Modelo de dados para a lista de clientes
@@ -43,9 +43,9 @@ public class TelaClientes extends JFrame {
     // Construtor da tela de clientes.
     // Define o tamanho, título e comportamento de fechamento da janela.
     // Carrega a lista inicial de clientes na tabela.
-    public TelaClientes(GerenciadorClientes gc, GerenciadorContas gco) {
-        this.gerenciadorClientes = gc; // Inicializa o gerenciador de clientes
-        this.gerenciadorContas = gco; // Inicializa o gerenciador de contas
+    public TelaClientes(ModelClientes gc, ModelContas gco) {
+        this.modelClientes = gc; // Inicializa o gerenciador de clientes
+        this.modelContas = gco; // Inicializa o gerenciador de contas
         initComponents(); // Configura os componentes visuais
         setTitle("Sistema Bancário - Manter Clientes"); // Define o título da janela
         setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Define a operação de fechamento
@@ -96,7 +96,7 @@ public class TelaClientes extends JFrame {
         // --- Painel de Tabela (Centro) ---
         // Cria a tabela para exibir os clientes
         // Inicializa o modelo de dados com todos os clientes
-        tableModel = new ModeloTabelaCliente(gerenciadorClientes.listarTodos()); // Criap o modelo com a lista inicial
+        tableModel = new ModeloTabelaCliente(modelClientes.listarTodos()); // Criap o modelo com a lista inicial
         tabelaClientes = new JTable(tableModel); // Cria a JTable com o modelo, para exibir os dados
         tabelaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Permite apenas uma linha selecionada
         
@@ -246,13 +246,13 @@ public class TelaClientes extends JFrame {
         if (novoCliente == null) return; // Sai se a validação falhar
         
         // Verifica se já existe um cliente com o CPF (chave primária)
-        if (gerenciadorClientes.buscarPorCpf(novoCliente.getCpf()) != null) {
+        if (modelClientes.buscarPorCpf(novoCliente.getCpf()) != null) {
             JOptionPane.showMessageDialog(this, "Já existe um cliente com este CPF.", "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
             return; // Sai se o CPF já estiver cadastrado
         }
         
-        gerenciadorClientes.adicionar(novoCliente); // Adiciona o cliente ao gerenciador
-        carregarTabela(gerenciadorClientes.listarTodos()); // Recarrega a tabela para incluir o novo cliente
+        modelClientes.adicionar(novoCliente); // Adiciona o cliente ao gerenciador
+        carregarTabela(modelClientes.listarTodos()); // Recarrega a tabela para incluir o novo cliente
         limparFormulario(); // Limpa o formulário para um novo cadastro
         JOptionPane.showMessageDialog(this, "Cliente salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -274,10 +274,10 @@ public class TelaClientes extends JFrame {
         clienteAntigo.setSobrenome(clienteNovo.getSobrenome());
         clienteAntigo.setRg(clienteNovo.getRg());
         clienteAntigo.setEndereco(clienteNovo.getEndereco());
-        gerenciadorClientes.atualizar(clienteAntigo);
+        modelClientes.atualizar(clienteAntigo);
         
         // Recarrega a tabela para refletir a mudança visual
-        carregarTabela(gerenciadorClientes.listarTodos());
+        carregarTabela(modelClientes.listarTodos());
         
         // Re-seleciona o cliente atualizado na tabela
         JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -293,7 +293,7 @@ public class TelaClientes extends JFrame {
         // Limpa o CPF para o formato de busca (apenas números)
         String cpfLimpo = cpfComMascara.replaceAll("[^0-9]", ""); 
         // Busca o cliente usando o CPF limpo
-        Cliente cliente = gerenciadorClientes.buscarPorCpf(cpfLimpo);
+        Cliente cliente = modelClientes.buscarPorCpf(cpfLimpo);
 
         if (cliente == null) return; // Sai se o cliente não for encontrado
 
@@ -305,11 +305,11 @@ public class TelaClientes extends JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) { // Se o usuário confirmar a exclusão
             // Exclui as contas vinculadas a este cliente
-            gerenciadorContas.excluirContasDoCliente(cliente);
+            modelContas.excluirContasDoCliente(cliente);
 
             // Exclui o cliente
-            if (gerenciadorClientes.excluir(cliente)) {
-                carregarTabela(gerenciadorClientes.listarTodos()); // Recarrega a tabela
+            if (modelClientes.excluir(cliente)) {
+                carregarTabela(modelClientes.listarTodos()); // Recarrega a tabela
                 limparFormulario(); // Limpa o formulário
                 JOptionPane.showMessageDialog(this, "Cliente e contas excluídos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -321,14 +321,14 @@ public class TelaClientes extends JFrame {
     // Realiza a busca de clientes com base no termo digitado e atualiza a tabela com os resultados.
     private void buscarClientes() {
         String termo = txtBusca.getText(); // Obtém o termo de busca
-        List<Cliente> resultados = gerenciadorClientes.buscar(termo); // Chama a lógica de busca
+        List<Cliente> resultados = modelClientes.buscar(termo); // Chama a lógica de busca
         carregarTabela(resultados); // Carrega a tabela com os resultados
         
         // Feedback para o usuário se a busca não retornar resultados
         if (resultados.isEmpty() && !termo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado para o termo: " + termo, "Busca", JOptionPane.INFORMATION_MESSAGE);
             txtBusca.setText(""); // Limpa o campo de busca
-            carregarTabela(gerenciadorClientes.listarTodos()); // Exibe todos novamente
+            carregarTabela(modelClientes.listarTodos()); // Exibe todos novamente
         }
     }
     
@@ -337,10 +337,10 @@ public class TelaClientes extends JFrame {
         String campo = (String) cmbOrdenar.getSelectedItem(); // Obtém o critério de ordenação
         
         // Pega a lista atual
-        List<Cliente> listaAtual = gerenciadorClientes.buscar(txtBusca.getText());
+        List<Cliente> listaAtual = modelClientes.buscar(txtBusca.getText());
         
         // Chama a lógica de ordenação
-        List<Cliente> listaOrdenada = gerenciadorClientes.ordenar(campo, listaAtual);
+        List<Cliente> listaOrdenada = modelClientes.ordenar(campo, listaAtual);
         
         carregarTabela(listaOrdenada); // Carrega a tabela com a lista ordenada
         

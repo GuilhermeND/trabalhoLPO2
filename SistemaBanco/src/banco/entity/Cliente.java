@@ -1,4 +1,4 @@
-package banco.models;
+package banco.entity;
 
 // Classe de modelo que representa um Cliente do sistema bancário.
 // Implementa a interface Comparable para permitir a ordenação natural por nome.
@@ -51,7 +51,7 @@ public class Cliente implements Comparable<Cliente> {
     // É usado em listas ou ComboBoxes. Inclui o CPF formatado.
     @Override
     public String toString() {
-        String cpfFormatado = formatarCpfParaExibicao(this.cpf); 
+        String cpfFormatado = formatarCpfParaExibicao(this.cpf);
         return nome + " " + sobrenome + " (CPF: " + cpfFormatado + ")";
     }
     

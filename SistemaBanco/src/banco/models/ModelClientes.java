@@ -8,13 +8,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class GerenciadorClientes {
+public class ModelClientes {
     private final ClienteDAO clienteDAO;
-    private final GerenciadorContas gerenciadorContas;
+    private final ModelContas modelContas;
 
-    public GerenciadorClientes(GerenciadorContas gerenciadorContas) {
+    public ModelClientes(ModelContas modelContas) {
         this.clienteDAO = new ClienteDAO();
-        this.gerenciadorContas = gerenciadorContas;
+        this.modelContas = modelContas;
     }
 
     public List<Cliente> listarTodos() {
@@ -53,11 +53,11 @@ public class GerenciadorClientes {
             Collections.sort(listaOrdenada, Comparator.comparing(Cliente::getSobrenome));
         } else if (campo.equalsIgnoreCase("salário") || campo.equalsIgnoreCase("salario")) {
             Collections.sort(listaOrdenada, (c1, c2) -> {
-                double saldo1 = gerenciadorContas.buscarContaPorCpfCliente(c1.getCpf()) != null
-                        ? gerenciadorContas.buscarContaPorCpfCliente(c1.getCpf()).getSaldo()
+                double saldo1 = modelContas.buscarContaPorCpfCliente(c1.getCpf()) != null
+                        ? modelContas.buscarContaPorCpfCliente(c1.getCpf()).getSaldo()
                         : 0.0;
-                double saldo2 = gerenciadorContas.buscarContaPorCpfCliente(c2.getCpf()) != null
-                        ? gerenciadorContas.buscarContaPorCpfCliente(c2.getCpf()).getSaldo()
+                double saldo2 = modelContas.buscarContaPorCpfCliente(c2.getCpf()) != null
+                        ? modelContas.buscarContaPorCpfCliente(c2.getCpf()).getSaldo()
                         : 0.0;
                 return Double.compare(saldo2, saldo1);
             });

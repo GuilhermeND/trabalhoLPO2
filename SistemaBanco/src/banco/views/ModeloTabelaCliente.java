@@ -1,6 +1,6 @@
-package banco.apresentacao;
+package banco.views;
 
-import banco.modelo.Cliente;
+import banco.entity.Cliente;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;

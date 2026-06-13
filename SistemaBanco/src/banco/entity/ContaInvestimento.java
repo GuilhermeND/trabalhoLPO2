@@ -1,4 +1,4 @@
-package banco.models;
+package banco.entity;
 
 import javax.swing.JOptionPane;
 
