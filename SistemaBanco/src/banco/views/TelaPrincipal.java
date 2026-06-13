@@ -91,10 +91,4 @@ public class TelaPrincipal extends JFrame {
         new TelaOperacoes(controller.getTelaOperacoesController()).setVisible(true);
     }
 
-    // Ponto de entrada (Main) da aplicação.
-    // Inicia a interface gráfica do sistema bancário
-    public static void main(String[] args) {
-        // Garante que a UI seja executada na thread de despacho de eventos (EDT)
-        SwingUtilities.invokeLater(() -> new TelaPrincipal().setVisible(true));
-    }
 }

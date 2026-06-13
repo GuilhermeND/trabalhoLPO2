@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="660f851c-7014-4491-a4e4-9738a1e0fd8f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ClienteDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ContaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ContaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/util/Conexao.java" beforeDir="false" />
-    </list>
+    <list default="true" id="660f851c-7014-4491-a4e4-9738a1e0fd8f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
