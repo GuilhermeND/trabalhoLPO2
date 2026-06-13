@@ -15,13 +15,11 @@ import java.util.List;
 
 public class ContaDAO {
     public List<Conta> listarTodas() {
-        String sql = """
-                SELECT c.numero, c.tipo, c.saldo, c.limite, c.montante_minimo, c.deposito_minimo,
-                       cl.id AS cliente_id, cl.nome, cl.sobrenome, cl.rg, cl.cpf, cl.endereco
-                FROM contas c
-                JOIN clientes cl ON cl.id = c.cliente_id
-                ORDER BY c.numero
-                """;
+        String sql = "SELECT c.numero, c.tipo, c.saldo, c.limite, c.montante_minimo, c.deposito_minimo, "
+                + "cl.id AS cliente_id, cl.nome, cl.sobrenome, cl.rg, cl.cpf, cl.endereco "
+                + "FROM contas c "
+                + "JOIN clientes cl ON cl.id = c.cliente_id "
+                + "ORDER BY c.numero";
         try (Connection conn = Conexao.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -36,13 +34,10 @@ public class ContaDAO {
     }
 
     public void inserir(Conta conta) {
-        String sql = """
-                INSERT INTO contas
-                    (numero, cliente_id, tipo, saldo, limite, montante_minimo, deposito_minimo)
-                VALUES
-                    (nextval('numero_conta_seq'), ?, ?, ?, ?, ?, ?)
-                RETURNING numero
-                """;
+        String sql = "INSERT INTO contas "
+                + "(numero, cliente_id, tipo, saldo, limite, montante_minimo, deposito_minimo) "
+                + "VALUES (nextval('numero_conta_seq'), ?, ?, ?, ?, ?, ?) "
+                + "RETURNING numero";
         try (Connection conn = Conexao.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             if (conta.getDono().getId() == null) {
@@ -63,13 +58,11 @@ public class ContaDAO {
     }
 
     public Conta buscarContaPorCpfCliente(String cpf) {
-        String sql = """
-                SELECT c.numero, c.tipo, c.saldo, c.limite, c.montante_minimo, c.deposito_minimo,
-                       cl.id AS cliente_id, cl.nome, cl.sobrenome, cl.rg, cl.cpf, cl.endereco
-                FROM contas c
-                JOIN clientes cl ON cl.id = c.cliente_id
-                WHERE cl.cpf = ?
-                """;
+        String sql = "SELECT c.numero, c.tipo, c.saldo, c.limite, c.montante_minimo, c.deposito_minimo, "
+                + "cl.id AS cliente_id, cl.nome, cl.sobrenome, cl.rg, cl.cpf, cl.endereco "
+                + "FROM contas c "
+                + "JOIN clientes cl ON cl.id = c.cliente_id "
+                + "WHERE cl.cpf = ?";
         try (Connection conn = Conexao.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cpf);
@@ -108,11 +101,13 @@ public class ContaDAO {
     }
 
     private void preencherCamposEspecificos(Conta conta, PreparedStatement stmt) throws SQLException {
-        if (conta instanceof ContaCorrente contaCorrente) {
+        if (conta instanceof ContaCorrente) {
+            ContaCorrente contaCorrente = (ContaCorrente) conta;
             stmt.setDouble(4, contaCorrente.getLimite());
             stmt.setNull(5, java.sql.Types.NUMERIC);
             stmt.setNull(6, java.sql.Types.NUMERIC);
-        } else if (conta instanceof ContaInvestimento contaInvestimento) {
+        } else if (conta instanceof ContaInvestimento) {
+            ContaInvestimento contaInvestimento = (ContaInvestimento) conta;
             stmt.setNull(4, java.sql.Types.NUMERIC);
             stmt.setDouble(5, contaInvestimento.getMontanteMinimo());
             stmt.setDouble(6, contaInvestimento.getDepositoMinimo());

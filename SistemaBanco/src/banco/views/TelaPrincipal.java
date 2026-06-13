@@ -1,7 +1,6 @@
 package banco.views;
 
-import banco.models.ModelClientes;
-import banco.models.ModelContas;
+import banco.controllers.SistemaBancoController;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -13,17 +12,15 @@ import javax.swing.*;
 public class TelaPrincipal extends JFrame {
     
     // Instâncias dos Gerenciadores de Negócio
-    private final ModelClientes modelClientes; // Gerenciador de Clientes
-    private final ModelContas modelContas; // Gerenciador de Contas
+    private final SistemaBancoController controller;
 
     // Construtor da tela principal. Inicializa os gerenciadores e a interface 
     public TelaPrincipal() {
         // Inicialização dos gerenciadores na ordem correta:
-        this.modelContas = new ModelContas(); // Inicializa o Gerenciador de Contas
-        this.modelClientes = new ModelClientes(modelContas); // Inicializa o Gerenciador de Clientes (que precisa da ref. do contas)
+        this.controller = new SistemaBancoController();
         
         // Inicializa as contas de teste, garantindo que os clientes já existam
-        modelContas.inicializarContasDeTeste(modelClientes);
+        controller.inicializar();
         
         initComponents(); // Configura os componentes visuais da tela
         setTitle("Sistema Bancário - Menu Principal"); // Define o título
@@ -79,19 +76,19 @@ public class TelaPrincipal extends JFrame {
     // Abre a tela Manter Clientes
     private void abrirTelaClientes(ActionEvent e) {
         // Passa as instâncias dos gerenciadores
-        new TelaClientes(modelClientes, modelContas).setVisible(true);
+        new TelaClientes(controller.getTelaClientesController()).setVisible(true);
     }
 
     // Abre a tela de vinculação de Conta a Cliente.
     private void abrirTelaVincularConta(ActionEvent e) {
         // Passa as instâncias dos gerenciadores
-        new TelaVincularConta(modelClientes, modelContas).setVisible(true);
+        new TelaVincularConta(controller.getTelaVincularContaController()).setVisible(true);
     }
 
     // Abre a tela de Operações em Conta.
     private void abrirTelaOperacoes(ActionEvent e) {
         // Passa a instância do gerenciador de contas
-        new TelaOperacoes(modelContas, modelClientes).setVisible(true);
+        new TelaOperacoes(controller.getTelaOperacoesController()).setVisible(true);
     }
 
     // Ponto de entrada (Main) da aplicação.

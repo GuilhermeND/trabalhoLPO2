@@ -1,9 +1,8 @@
 package banco.views;
 
+import banco.controllers.TelaOperacoesController;
 import banco.entity.Conta;
 import banco.entity.Cliente;
-import banco.models.ModelContas;
-import banco.models.ModelClientes;
 
 import javax.swing.text.MaskFormatter;
 import javax.swing.event.DocumentListener;
@@ -17,8 +16,7 @@ import javax.swing.*;
 public class TelaOperacoes extends JFrame {
     
     // Gerenciadores de Negócio
-    private final ModelContas modelContas; // Referência ao GerenciadorContas para operações bancárias
-    private final ModelClientes modelClientes; // Referência ao GerenciadorClientes para busca de clientes
+    private final TelaOperacoesController controller; // Controlador da tela de operações
     private Conta contaAtual; // Objeto Conta atualmente selecionado
     
     // Componentes de Busca
@@ -35,9 +33,8 @@ public class TelaOperacoes extends JFrame {
     // Construtor da tela de operações.
     // Recebe os gerenciadores de negócio como parâmetros para permitir operações em contas e busca de clientes.
     // Inicializa os componentes da interface e configura a janela.
-    public TelaOperacoes(ModelContas gco, ModelClientes gcl) {
-        this.modelContas = gco; // Referência ao GerenciadorContas
-        this.modelClientes = gcl; // Referência ao GerenciadorClientes
+    public TelaOperacoes(TelaOperacoesController controller) {
+        this.controller = controller;
         initComponents(); // Inicializa os componentes da interface
         setTitle("Sistema Bancário - Operações em Conta"); // Define o título da janela
         setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Fecha apenas esta janela ao clicar no X
@@ -155,7 +152,7 @@ public class TelaOperacoes extends JFrame {
         }
 
         // Busca o Cliente pelo CPF
-        Cliente cliente = modelClientes.buscarPorCpf(cpfLimpo);
+        Cliente cliente = controller.buscarClientePorCpf(cpfLimpo);
 
         // Verifica se o Cliente Existe
         if (cliente == null) {
@@ -165,7 +162,7 @@ public class TelaOperacoes extends JFrame {
         }
 
         // Tenta encontrar a Conta
-        contaAtual = modelContas.buscarContaPorCpfCliente(cpfLimpo); // Busca a conta vinculada ao CPF
+        contaAtual = controller.buscarContaPorCpfCliente(cpfLimpo); // Busca a conta vinculada ao CPF
 
         if (contaAtual != null) {
             // Conta encontrada: Exibe informações e habilita operações
@@ -263,12 +260,12 @@ public class TelaOperacoes extends JFrame {
             double valor = getValorOperacao(); // Obtém o valor do campo de operação
 
             // Chama a lógica de saque do GerenciadorContas, que chama o polimórfico saca()
-            if (modelContas.sacar(contaAtual, valor)) {
+            if (controller.sacar(contaAtual, valor)) {
                 // Sucesso: feedback e atualização de saldo
                 JOptionPane.showMessageDialog(this, "Saque de R$ " + String.format("%.2f", valor) + " realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 verSaldo(); // Exibe o novo saldo
             } else {
-                // Falha: O erro é reportado pelo modelo (ContaCorrente/ContaInvestimento)
+                JOptionPane.showMessageDialog(this, "Saque não permitido. Verifique o valor, saldo e regras da conta.", "Erro de Saque", JOptionPane.ERROR_MESSAGE);
             }
 
             txtValorOperacao.setText(""); // Limpa o campo após a operação
@@ -286,9 +283,11 @@ public class TelaOperacoes extends JFrame {
             double valor = getValorOperacao(); // Obtém o valor do campo de operação
 
             // Chama a lógica de depósito (polimórfica)
-            if (modelContas.depositar(contaAtual, valor)) { // Sucesso
+            if (controller.depositar(contaAtual, valor)) { // Sucesso
                 JOptionPane.showMessageDialog(this, "Depósito de R$ " + String.format("%.2f", valor) + " realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 verSaldo(); // Exibe o novo saldo
+            } else {
+                JOptionPane.showMessageDialog(this, "Depósito não permitido. Verifique o valor e as regras da conta.", "Erro de Depósito", JOptionPane.ERROR_MESSAGE);
             }
 
             txtValorOperacao.setText(""); // Limpa o campo após a operação
@@ -312,7 +311,7 @@ public class TelaOperacoes extends JFrame {
         double saldoAntes = contaAtual.getSaldo(); // Salva o saldo anterior
 
         // Remunera a conta (chama o método remunera() da subclasse - polimorfismo)
-        modelContas.remunerar(contaAtual);
+        controller.remunerar(contaAtual); 
 
         double saldoDepois = contaAtual.getSaldo(); // Saldo após a remuneração
         

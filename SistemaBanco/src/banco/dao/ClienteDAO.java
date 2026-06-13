@@ -86,15 +86,13 @@ public class ClienteDAO {
     }
 
     public List<Cliente> buscar(String termo) {
-        String sql = """
-                SELECT id, nome, sobrenome, rg, cpf, endereco
-                FROM clientes
-                WHERE LOWER(nome) LIKE LOWER(?)
-                   OR LOWER(sobrenome) LIKE LOWER(?)
-                   OR rg LIKE ?
-                   OR cpf LIKE ?
-                ORDER BY id
-                """;
+        String sql = "SELECT id, nome, sobrenome, rg, cpf, endereco "
+                + "FROM clientes "
+                + "WHERE LOWER(nome) LIKE LOWER(?) "
+                + "OR LOWER(sobrenome) LIKE LOWER(?) "
+                + "OR rg LIKE ? "
+                + "OR cpf LIKE ? "
+                + "ORDER BY id";
         String filtro = "%" + termo + "%";
         try (Connection conn = Conexao.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -133,4 +131,3 @@ public class ClienteDAO {
         );
     }
 }
-

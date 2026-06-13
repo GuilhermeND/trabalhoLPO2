@@ -1,10 +1,9 @@
 package banco.views;
 
+import banco.controllers.TelaVincularContaController;
 import banco.entity.Cliente;
 import banco.entity.ContaCorrente;
 import banco.entity.ContaInvestimento;
-import banco.models.ModelClientes;
-import banco.models.ModelContas;
 
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
@@ -23,8 +22,7 @@ import javax.swing.*;
 public class TelaVincularConta extends JFrame {
     
     // Gerenciadores de Negócio
-    private final ModelClientes modelClientes; // Referência ao Gerenciador de Clientes para listar clientes
-    private final ModelContas modelContas; // Referência ao Gerenciador de Contas para adicionar a nova conta
+    private final TelaVincularContaController controller; // Controlador da tela de vincular conta
     
     // Componentes de Seleção
     private JComboBox<Cliente> cmbClientes; // Combobox para selecionar o cliente
@@ -46,9 +44,8 @@ public class TelaVincularConta extends JFrame {
     private boolean isUpdating = false; // Flag para evitar loops de DocumentListener
 
     // Construtor da tela de vinculação de contas
-    public TelaVincularConta(ModelClientes gc, ModelContas gco) {
-        this.modelClientes = gc; // Inicializa o gerenciador de clientes
-        this.modelContas = gco; // Inicializa o gerenciador de contas
+    public TelaVincularConta(TelaVincularContaController controller) {
+        this.controller = controller;
         initComponents(); // Configura os componentes visuais
         carregarClientes(); // Carrega os clientes na combobox ao iniciar
         getRootPane().setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15)); // Adiciona padding
@@ -159,7 +156,7 @@ public class TelaVincularConta extends JFrame {
     // Carrega a lista de clientes do gerenciador para a JComboBox de clientes.
     private void carregarClientes() {
         cmbClientes.removeAllItems(); // Limpa itens existentes
-        List<Cliente> clientes = modelClientes.listarTodos(); // Obtém a lista de clientes do gerenciador
+        List<Cliente> clientes = controller.listarClientes(); // Obtém a lista de clientes do gerenciador
         for (Cliente cliente : clientes) { // Itera sobre cada cliente
             cmbClientes.addItem(cliente); // Adiciona cada cliente
         }
@@ -278,7 +275,7 @@ public class TelaVincularConta extends JFrame {
         }
         
         // Verifica se o cliente já tem uma conta (Regra de Negócio: apenas um tipo de conta por cliente)
-        if (modelContas.buscarContaPorCpfCliente(clienteSelecionado.getCpf()) != null) {
+        if (controller.buscarContaPorCpfCliente(clienteSelecionado.getCpf()) != null) {
             JOptionPane.showMessageDialog(this, "O cliente já possui uma conta vinculada.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -292,7 +289,7 @@ public class TelaVincularConta extends JFrame {
                 double limite = getDoubleFromTextField(txtCC_Limite);
                 
                 ContaCorrente novaConta = new ContaCorrente(clienteSelecionado, depInicial, limite); // Cria e adiciona a Conta Corrente
-                modelContas.adicionar(novaConta); // Adiciona a conta recém-criada ao GerenciadorContas.
+                controller.vincularConta(novaConta); // Adiciona a conta recém-criada.
 
                 // Exibe mensagem de sucesso para o usuário.
                 JOptionPane.showMessageDialog(this, "Conta Corrente Nº " + novaConta.getNumero() + " criada e vinculada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -316,7 +313,7 @@ public class TelaVincularConta extends JFrame {
                      JOptionPane.showMessageDialog(this, "Criação de Conta Investimento CANCELADA. O Depósito Inicial de R$ " + String.format("%.2f", depInicialCI) + " é menor que o Depósito Mínimo de R$ " + String.format("%.2f", depMinimo) + ".", "Criação Bloqueada", JOptionPane.WARNING_MESSAGE);
                 } else {
                     // Adiciona a conta (se a criação foi bem-sucedida ou se o depósito inicial foi 0).
-                    modelContas.adicionar(novaConta);
+                    controller.vincularConta(novaConta); 
                     // Exibe mensagem de sucesso.
                     JOptionPane.showMessageDialog(this, "Conta Investimento Nº " + novaConta.getNumero() + " criada e vinculada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     limparCamposCI(); // Limpa os campos da Conta Investimento
