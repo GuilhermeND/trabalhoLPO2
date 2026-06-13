@@ -4,7 +4,7 @@ import banco.entity.Cliente;
 import banco.entity.Conta;
 import banco.entity.ContaCorrente;
 import banco.entity.ContaInvestimento;
-import banco.util.Conexao;
+import banco.util.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +13,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContaDAO {
-    public List<Conta> listarTodas() {
+public class ContaDAO implements Dao<Conta> {
+    @Override
+    public List<Conta> listarTodos() {
         String sql = "SELECT c.numero, c.tipo, c.saldo, c.limite, c.montante_minimo, c.deposito_minimo, "
                 + "cl.id AS cliente_id, cl.nome, cl.sobrenome, cl.rg, cl.cpf, cl.endereco "
                 + "FROM contas c "
                 + "JOIN clientes cl ON cl.id = c.cliente_id "
                 + "ORDER BY c.numero";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             List<Conta> contas = new ArrayList<>();
@@ -33,12 +34,17 @@ public class ContaDAO {
         }
     }
 
+    public List<Conta> listarTodas() {
+        return listarTodos();
+    }
+
+    @Override
     public void inserir(Conta conta) {
         String sql = "INSERT INTO contas "
                 + "(numero, cliente_id, tipo, saldo, limite, montante_minimo, deposito_minimo) "
                 + "VALUES (nextval('numero_conta_seq'), ?, ?, ?, ?, ?, ?) "
                 + "RETURNING numero";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             if (conta.getDono().getId() == null) {
                 throw new IllegalArgumentException("Cliente precisa existir no banco antes de criar conta.");
@@ -63,7 +69,7 @@ public class ContaDAO {
                 + "FROM contas c "
                 + "JOIN clientes cl ON cl.id = c.cliente_id "
                 + "WHERE cl.cpf = ?";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cpf);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -79,7 +85,7 @@ public class ContaDAO {
 
     public void atualizarSaldo(Conta conta) {
         String sql = "UPDATE contas SET saldo = ? WHERE numero = ?";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDouble(1, conta.getSaldo());
             stmt.setInt(2, conta.getNumero());
@@ -91,7 +97,7 @@ public class ContaDAO {
 
     public void excluirContasDoCliente(Cliente cliente) {
         String sql = "DELETE FROM contas WHERE cliente_id = (SELECT id FROM clientes WHERE cpf = ?)";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cliente.getCpf());
             stmt.executeUpdate();

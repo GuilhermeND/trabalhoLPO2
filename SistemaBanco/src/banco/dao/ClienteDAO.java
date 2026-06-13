@@ -1,7 +1,7 @@
 package banco.dao;
 
 import banco.entity.Cliente;
-import banco.util.Conexao;
+import banco.util.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +11,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteDAO {
+public class ClienteDAO implements Dao<Cliente> {
+    @Override
     public List<Cliente> listarTodos() {
         String sql = "SELECT id, nome, sobrenome, rg, cpf, endereco FROM clientes ORDER BY id";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             List<Cliente> clientes = new ArrayList<>();
@@ -27,9 +28,10 @@ public class ClienteDAO {
         }
     }
 
+    @Override
     public void inserir(Cliente cliente) {
         String sql = "INSERT INTO clientes (nome, sobrenome, rg, cpf, endereco) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preencherStatement(cliente, stmt);
             stmt.executeUpdate();
@@ -45,7 +47,7 @@ public class ClienteDAO {
 
     public void atualizar(Cliente cliente) {
         String sql = "UPDATE clientes SET nome = ?, sobrenome = ?, rg = ?, endereco = ? WHERE cpf = ?";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getSobrenome());
@@ -60,7 +62,7 @@ public class ClienteDAO {
 
     public boolean excluir(Cliente cliente) {
         String sql = "DELETE FROM clientes WHERE cpf = ?";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cliente.getCpf());
             return stmt.executeUpdate() > 0;
@@ -71,7 +73,7 @@ public class ClienteDAO {
 
     public Cliente buscarPorCpf(String cpf) {
         String sql = "SELECT id, nome, sobrenome, rg, cpf, endereco FROM clientes WHERE cpf = ?";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cpf);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -94,7 +96,7 @@ public class ClienteDAO {
                 + "OR cpf LIKE ? "
                 + "ORDER BY id";
         String filtro = "%" + termo + "%";
-        try (Connection conn = Conexao.getConnection();
+        try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, filtro);
             stmt.setString(2, filtro);

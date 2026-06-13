@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="660f851c-7014-4491-a4e4-9738a1e0fd8f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ClienteDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ContaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/dao/ContaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/Conta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaCorrente.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaCorrente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaInvestimento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/entity/ContaInvestimento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaOperacoes.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaOperacoes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaVincularConta.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaBanco/src/banco/views/TelaVincularConta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaBanco/src/banco/util/Conexao.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
