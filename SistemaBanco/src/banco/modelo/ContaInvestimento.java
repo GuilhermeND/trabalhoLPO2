@@ -20,6 +20,12 @@ public class ContaInvestimento extends Conta {
         }
     }
 
+    public ContaInvestimento(Cliente dono, double saldo, double montanteMinimo, double depositoMinimo, boolean carregarDoBanco) {
+        super(dono, saldo);
+        this.montanteMinimo = montanteMinimo;
+        this.depositoMinimo = depositoMinimo;
+    }
+
     // Retorna o montante mínimo de saldo.
     public double getMontanteMinimo() { return montanteMinimo; }
     

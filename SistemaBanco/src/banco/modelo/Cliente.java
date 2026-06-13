@@ -3,6 +3,7 @@ package banco.modelo;
 // Classe de modelo que representa um Cliente do sistema bancário.
 // Implementa a interface Comparable para permitir a ordenação natural por nome.
 public class Cliente implements Comparable<Cliente> {
+    private Long id;
     private String nome;
     private String sobrenome;
     private String rg;
@@ -18,7 +19,13 @@ public class Cliente implements Comparable<Cliente> {
         this.endereco = endereco;
     }
 
+    public Cliente(Long id, String nome, String sobrenome, String rg, String cpf, String endereco) {
+        this(nome, sobrenome, rg, cpf, endereco);
+        this.id = id;
+    }
+
     // --- Getters para acessar os dados do cliente ---
+    public Long getId() { return id; }
     public String getNome() { return nome; }
     public String getSobrenome() { return sobrenome; }
     public String getRg() { return rg; }
@@ -29,6 +36,7 @@ public class Cliente implements Comparable<Cliente> {
     public void setNome(String nome) { this.nome = nome; }
     public void setSobrenome(String sobrenome) { this.sobrenome = sobrenome; }
     public void setRg(String rg) { this.rg = rg; }
+    public void setId(Long id) { this.id = id; }
     // O CPF é geralmente mantido como imutável após o cadastro, por isso não tem setter.
     public void setEndereco(String endereco) { this.endereco = endereco; }
 

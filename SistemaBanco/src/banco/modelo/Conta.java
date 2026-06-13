@@ -26,6 +26,10 @@ public abstract class Conta implements ContaI {
 
     public double getSaldo() { return saldo; }
 
+    public void setNumero(int numero) { this.numero = numero; }
+
+    public void setSaldo(double saldo) { this.saldo = saldo; }
+
     // Implementa a lógica de depósito, checando se o valor é positivo.
     @Override
     public boolean deposita(double valor) {

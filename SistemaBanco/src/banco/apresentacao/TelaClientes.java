@@ -274,6 +274,7 @@ public class TelaClientes extends JFrame {
         clienteAntigo.setSobrenome(clienteNovo.getSobrenome());
         clienteAntigo.setRg(clienteNovo.getRg());
         clienteAntigo.setEndereco(clienteNovo.getEndereco());
+        gerenciadorClientes.atualizar(clienteAntigo);
         
         // Recarrega a tabela para refletir a mudança visual
         carregarTabela(gerenciadorClientes.listarTodos());
