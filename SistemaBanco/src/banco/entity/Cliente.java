@@ -1,4 +1,4 @@
-package banco.modelo;
+package banco.models;
 
 // Classe de modelo que representa um Cliente do sistema bancário.
 // Implementa a interface Comparable para permitir a ordenação natural por nome.

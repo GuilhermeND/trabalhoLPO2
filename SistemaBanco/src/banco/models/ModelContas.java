@@ -1,8 +1,8 @@
-package banco.negocio;
+package banco.models;
 
 import banco.dao.ContaDAO;
-import banco.modelo.Cliente;
-import banco.modelo.Conta;
+import banco.entity.Cliente;
+import banco.entity.Conta;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package banco.modelo;
+package banco.models;
 
 // Interface que define o contrato básico (métodos obrigatórios) para qualquer tipo de conta bancária.
 public interface ContaI {

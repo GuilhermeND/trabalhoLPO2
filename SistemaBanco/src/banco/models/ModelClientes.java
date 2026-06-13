@@ -1,7 +1,7 @@
-package banco.negocio;
+package banco.models;
 
 import banco.dao.ClienteDAO;
-import banco.modelo.Cliente;
+import banco.entity.Cliente;
 
 import java.util.ArrayList;
 import java.util.Collections;
