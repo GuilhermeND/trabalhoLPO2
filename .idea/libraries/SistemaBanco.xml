@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="SistemaBanco">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/SistemaBanco/dist/SistemaBanco.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
