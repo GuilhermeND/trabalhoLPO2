@@ -1,5 +1,6 @@
 package banco.controllers;
 
+import banco.dao.DbInitializer;
 import banco.models.ModelClientes;
 import banco.models.ModelContas;
 
@@ -19,6 +20,7 @@ public class SistemaBancoController {
     }
 
     public void inicializar() {
+        DbInitializer.inicializarDadosPadrao();
         modelContas.inicializarContasDeTeste(modelClientes);
     }
 
@@ -34,4 +36,3 @@ public class SistemaBancoController {
         return telaOperacoesController;
     }
 }
-
